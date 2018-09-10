@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TableServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">com.service</a> &gt; <a href="index.source.html" class="el_package">com.service</a> &gt; <span class="el_source">TableServiceImpl.java</span></div><h1>TableServiceImpl.java</h1><pre class="source lang-java linenums">package com.service;
+
+import java.util.Scanner;
+import java.util.LinkedList;
+import java.util.ArrayList;
+import java.util.Random;
+
+import com.model.Table;
+
+<span class="fc" id="L10">public class TableServiceImpl implements TableServiceInterface{</span>
+
+<span class="fc" id="L12">		private Scanner scanner = new Scanner(System.in);</span>
+		public ArrayList&lt;ArrayList&lt;String&gt;&gt; newTable(int rows, int cols){
+<span class="fc" id="L14">			Random random = new Random();</span>
+			String randomString;
+<span class="fc" id="L16">			ArrayList&lt;ArrayList&lt;String&gt;&gt; cells = new ArrayList&lt;ArrayList&lt;String&gt;&gt;();</span>
+
+<span class="fc bfc" id="L18" title="All 2 branches covered.">			for(int i=0;i&lt;rows;i++){</span>
+<span class="fc" id="L19">				cells.add(new ArrayList&lt;String&gt;());</span>
+<span class="fc bfc" id="L20" title="All 2 branches covered.">				for(int j=0;j&lt;cols;j++){</span>
+<span class="fc" id="L21">					randomString = String.valueOf((char) (random.nextInt(93)+33));</span>
+<span class="fc" id="L22">					randomString += String.valueOf((char) (random.nextInt(93)+33));</span>
+<span class="fc" id="L23">					randomString += String.valueOf((char) (random.nextInt(93)+33));</span>
+<span class="fc" id="L24">					cells.get(i).add(randomString);</span>
+				}
+			}
+<span class="fc" id="L27">			return cells;</span>
+
+		}//End method newTale
+
+		public void printCells(Table table){
+<span class="fc" id="L32">			ArrayList&lt;ArrayList&lt;String&gt;&gt; cells = table.getCells();</span>
+
+<span class="fc bfc" id="L34" title="All 2 branches covered.">			for (ArrayList&lt;String&gt; row : cells) {</span>
+<span class="fc bfc" id="L35" title="All 2 branches covered.">				for (String cell : row) {</span>
+<span class="fc" id="L36">					System.out.print(cell+ &quot; &quot;);</span>
+<span class="fc" id="L37">				}</span>
+<span class="fc" id="L38">				System.out.println();</span>
+<span class="fc" id="L39">			}</span>
+<span class="fc" id="L40">		}//End method printCells</span>
+
+		public void search(Table table,String substring) {
+<span class="fc" id="L43">			int occurrence=0;</span>
+<span class="fc" id="L44">			ArrayList&lt;ArrayList&lt;String&gt;&gt; cells = table.getCells();</span>
+
+<span class="fc bfc" id="L46" title="All 2 branches covered.">			for(int i=0;i&lt;cells.size();i++) {</span>
+<span class="fc bfc" id="L47" title="All 2 branches covered.">				for(int j=0;j&lt;cells.get(i).size();j++) {</span>
+<span class="fc bfc" id="L48" title="All 2 branches covered.">					for(int k=0;k&lt;=cells.get(i).get(j).length()-substring.length();k++) {</span>
+<span class="fc bfc" id="L49" title="All 2 branches covered.">						if(substring.equals(cells.get(i).get(j).substring(k,substring.length()+k)))</span>
+<span class="fc" id="L50">							occurrence++;</span>
+					}
+<span class="fc bfc" id="L52" title="All 2 branches covered.">					if(occurrence&gt;0) {</span>
+<span class="fc" id="L53">						System.out.println(occurrence+&quot; occurrence(s) at [&quot;+i+&quot;,&quot;+j+&quot;]&quot;);</span>
+					}
+<span class="fc" id="L55">					occurrence=0;</span>
+				}
+			}
+<span class="fc" id="L58">		}//End method search</span>
+
+		public ArrayList&lt;ArrayList&lt;String&gt;&gt; edit(Table table,int row, int col,String value){
+<span class="fc" id="L61">			System.out.print(table.getCells().get(row).get(col)+&quot;-&gt;&quot;);</span>
+<span class="fc" id="L62">			table.getCells().get(row).set(col,value);</span>
+
+<span class="fc" id="L64">			System.out.println(&quot;Cell successfully edited&quot;);</span>
+
+<span class="fc" id="L66">			return table.getCells();</span>
+		}//End method edit
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.2.201808211720</span></div></body></html>
